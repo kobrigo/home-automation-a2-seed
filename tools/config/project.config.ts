@@ -1,6 +1,7 @@
 import { join } from 'path';
 
 import { SeedConfig } from './seed.config';
+import { ExtendPackages } from "./seed.config.interfaces";
 // import { ExtendPackages } from './seed.config.interfaces';
 
 /**
@@ -33,13 +34,20 @@ export class ProjectConfig extends SeedConfig {
     ];
 
     // Add packages (e.g. ng2-translate)
-    // let additionalPackages: ExtendPackages[] = [{
-    //   name: 'ng2-translate',
-    //   // Path to the package's bundle
-    //   path: 'node_modules/ng2-translate/bundles/ng2-translate.umd.js'
-    // }];
-    //
-    // this.addPackagesBundles(additionalPackages);
+    let additionalPackages:ExtendPackages[] = [
+      // {
+      //   name: 'ng2-translate',
+      //   // Path to the package's bundle
+      //   path: 'node_modules/ng2-translate/bundles/ng2-translate.umd.js'
+      // }
+      {
+        name: '@angular/material',
+        // Path to the package's bundle
+        path: 'node_modules/@angular/material/bundles/material.umd.js'
+      }
+    ];
+    
+    this.addPackagesBundles(additionalPackages);
 
     /* Add proxy middleware */
     // this.PROXY_MIDDLEWARE = [

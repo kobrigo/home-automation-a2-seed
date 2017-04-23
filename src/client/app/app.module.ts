@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MaterialModule } from "@angular/material";
+import { MaterialModule } from '@angular/material';
 
 import { AboutModule } from './about/about.module';
 import { HomeModule } from './home/home.module';

@@ -1,7 +1,7 @@
 import { join } from 'path';
 
 import { SeedConfig } from './seed.config';
-import { ExtendPackages } from "./seed.config.interfaces";
+import { ExtendPackages } from './seed.config.interfaces';
 // import { ExtendPackages } from './seed.config.interfaces';
 
 /**
@@ -46,7 +46,7 @@ export class ProjectConfig extends SeedConfig {
         path: 'node_modules/@angular/material/bundles/material.umd.js'
       }
     ];
-    
+
     this.addPackagesBundles(additionalPackages);
 
     /* Add proxy middleware */

@@ -1,0 +1,1 @@
+* remove the simple sd-navbar and sd-toolbar since I am using material design

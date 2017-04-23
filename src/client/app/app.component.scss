@@ -2,4 +2,15 @@
   flex: 1 1 100%;
   display: flex;
   flex-flow: column;
+
+}
+
+:host /deep/ .mat-sidenav-backdrop {
+  background-color: black;
+  opacity: 0.5;
+}
+
+.mat-sidenav {
+  max-width: 200px;
+  background-color: white;
 }

@@ -6,13 +6,18 @@ import { RouterModule } from '@angular/router';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NameListService } from './name-list/name-list.service';
+import { MaterialModule } from '@angular/material';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
  */
 
 @NgModule({
-  imports: [CommonModule, RouterModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MaterialModule.forRoot(), //TODO: move this to a differnt module to support tree-shaking. https://github.com/angular/material2/releases
+  ],
   declarations: [ToolbarComponent, NavbarComponent],
   exports: [ToolbarComponent, NavbarComponent,
     CommonModule, FormsModule, RouterModule]

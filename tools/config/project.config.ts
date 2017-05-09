@@ -25,6 +25,9 @@ export class ProjectConfig extends SeedConfig {
       ...this.NPM_DEPENDENCIES,
       // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
+
+      /* Selects a pre-built Material theme */
+      {src: '@angular/material/prebuilt-themes/indigo-pink.css', inject: true}
     ];
 
     // Add `local` third-party libraries to be injected/bundled.
@@ -42,11 +45,14 @@ export class ProjectConfig extends SeedConfig {
       // }
       {
         name: '@angular/material',
-        // Path to the package's bundle
-        path: 'node_modules/@angular/material/bundles/material.umd.js'
+        path: 'node_modules/@angular/material/bundles/material.umd.js',
+        packageMeta: {
+          main: 'index.js',
+          defaultExtension: 'js'
+        }
       }
     ];
-    
+
     this.addPackagesBundles(additionalPackages);
 
     /* Add proxy middleware */

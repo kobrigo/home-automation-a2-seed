@@ -1,8 +1,5 @@
 <nav>
-    <button md-raised-button>Raised button</button>
-    <button md-fab>
-        <md-icon>check</md-icon>
-    </button>
-    <a [routerLink]="['/']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">HOME</a>
-    <a [routerLink]="['/about']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">ABOUT</a>
+    <button md-button [routerLink]="['/']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">HOME</button>
+    <button md-button [routerLink]="['/about']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">ABOUT</button>
+    <button md-button [routerLink]="['/debug']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">DEBUG</button>
 </nav>

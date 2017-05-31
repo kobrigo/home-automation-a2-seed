@@ -10,6 +10,7 @@ import { MaterialModule } from '@angular/material';
 import { AboutModule } from './about/about.module';
 import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
+import { DebugModule } from './debug/debug.module';
 
 @NgModule({
 
@@ -19,6 +20,7 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     AboutModule,
     HomeModule,
+    DebugModule,
     SharedModule.forRoot(),
     MaterialModule.forRoot(), //TODO: move this to a differnt module to support tree-shaking. https://github.com/angular/material2/releases
     BrowserAnimationsModule,

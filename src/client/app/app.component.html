@@ -10,7 +10,7 @@
             SideNav Content
         </div>
     </md-sidenav>
-    <button hide-lg md-mini-fab class="example-fab" (click)="sidenav.toggle()">
+    <button fxHide.gt-sm="true" fxShow.sm="true" md-mini-fab class="example-fab" (click)="sidenav.toggle()">
         <md-icon>add</md-icon>
     </button>
 

@@ -11,6 +11,7 @@ import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
 import { DebugModule } from './debug/debug.module';
 import { MaterialImportsModule } from './shared/angular-material-imports.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
 
@@ -23,7 +24,8 @@ import { MaterialImportsModule } from './shared/angular-material-imports.module'
     DebugModule,
     SharedModule.forRoot(),
     BrowserAnimationsModule,
-    MaterialImportsModule
+    MaterialImportsModule,
+    FlexLayoutModule
   ],
 
   declarations: [AppComponent],

@@ -172,7 +172,7 @@ module.exports.setSchedule = function (schedule) {
         persistencyService.save('shader', _schedules);
         //for now we update the schedule by removeing it and then adding
         schedulerService.removeSchedule(schedulerBeforeUpdate.schedulerId());
-        setScheduleInScheduler(schedulerBeforeUpdate);
+        setScheduleInScheduler(schedule);
         return _schedules;
     }
 

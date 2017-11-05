@@ -527,7 +527,9 @@ export class SeedConfig {
   * Browser-sync middleware configurations array.
   * @type {Array}
   */
-  PROXY_MIDDLEWARE: any[] = [];
+  PROXY_MIDDLEWARE: any[] = [
+    require('http-proxy-middleware')('/api', { ws: false, target: 'http://localhost:4000', logLevel:'debug' })
+  ];
 
   /**
    * Configurations for NPM module configurations. Add to or override in project.config.ts.

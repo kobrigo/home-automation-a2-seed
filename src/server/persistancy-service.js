@@ -2,13 +2,14 @@ var fs = require('fs');
 var logger = require('./logger');
 
 var resources = {
-    'shader': './server/resources/shader.json'
+    'shader': './src/server/resources/shader.json'
 };
 
 module.exports.read = function (resource) {
     if (resource === 'shader') {
-        logger.log('reading shader resource');
+        logger.log('Reading shader resource');
         var shaderAsString = fs.readFileSync(resources['shader']);
+        logger.log('Reading shader resource. Done');
         if (shaderAsString && shaderAsString !== '') {
             return JSON.parse(shaderAsString);
         } else {
@@ -16,7 +17,7 @@ module.exports.read = function (resource) {
         }
     }
 
-    throw new Error('unkown resource: ' + resource);
+    throw new Error('unknown resource: ' + resource);
 };
 
 module.exports.save = function (resource, data) {

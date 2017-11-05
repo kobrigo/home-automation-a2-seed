@@ -3,6 +3,8 @@ import { join } from 'path';
 import { SeedConfig } from './seed.config';
 import { ExtendPackages } from "./seed.config.interfaces";
 
+import { argv } from 'yargs';
+
 /**
  * This class extends the basic seed configuration, allowing for project specific overrides. A few examples can be found
  * below.
@@ -10,6 +12,8 @@ import { ExtendPackages } from "./seed.config.interfaces";
 export class ProjectConfig extends SeedConfig {
 
   PROJECT_TASKS_DIR = join(process.cwd(), this.TOOLS_DIR, 'tasks', 'project');
+
+  PORT = argv['port'] || 4444;
 
   constructor() {
     super();

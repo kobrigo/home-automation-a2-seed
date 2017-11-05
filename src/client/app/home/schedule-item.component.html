@@ -1,0 +1,23 @@
+<div>
+    <span>{{model.id}}</span>
+    <span>
+        <md-button-toggle [checked]="onAtSunday" (change)="onDayChanged($event, 'Sunday')">Sunday</md-button-toggle>
+        <md-button-toggle [checked]="onAtMonday" (change)="onDayChanged($event, 'Monday')">Monday</md-button-toggle>
+        <md-button-toggle [checked]="onAtTuesday" (change)="onDayChanged($event, 'Tuesday')">Tuesday</md-button-toggle>
+        <md-button-toggle [checked]="onAtWednesday" (change)="onDayChanged($event, 'Wednesday')">Wednesday</md-button-toggle>
+        <md-button-toggle [checked]="onAtThursday" (change)="onDayChanged($event, 'Thursday')">Thursday</md-button-toggle>
+        <md-button-toggle [checked]="onAtFriday" (change)="onDayChanged($event, 'Friday')">Friday</md-button-toggle>
+        <md-button-toggle [checked]="onAtSaturday" (change)="onDayChanged($event, 'Saturday')">Saturday</md-button-toggle>
+    </span>
+    <span>{{model.startAtTime}}</span>
+    <span>{{model.duration}}</span>
+
+    <mat-slide-toggle
+            class="schedule-enable-toggle"
+            [color]="blue"
+            [(ngModel)]="model.enabled"
+            (change)="onEnableToggleChanged($event, model)"
+    >
+        Slide me!
+    </mat-slide-toggle>
+</div>

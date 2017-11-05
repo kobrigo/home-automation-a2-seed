@@ -19,7 +19,7 @@ try {
         formatter: logFormatterFunction
     });
     fileTransport = new (winston.transports.File)({
-        filename: './server/logs/server.log',
+        filename: './src/server/logs/server.log',
         json: false,
         level: 'debug',
         maxFiles: 10,

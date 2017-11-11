@@ -63,18 +63,42 @@ export class ProjectConfig extends SeedConfig {
       {
         name: '@angular/flex-layout',
         path: 'node_modules/@angular/flex-layout/bundles/flex-layout.umd.js'
+      },
+      {
+        name: 'socket.io-client',
+        path: 'node_modules/socket.io-client/dist',
+        packageMeta: {
+          defaultExtension: 'js',
+          main: 'socket.io.js'
+        }
+      },
+      {
+        name: 'ng2-socket-io',
+        path: 'node_modules/ng2-socket-io/',
+        packageMeta: {
+          defaultExtension: 'js',
+          main: 'index.js'
+        }
       }
+
     ];
 
     this.addPackagesBundles(additionalPackages);
 
     /* Add proxy middleware */
-    // this.PROXY_MIDDLEWARE = [
-    //   require('http-proxy-middleware')('/api', { ws: false, target: 'http://localhost:3003' })
-    // ];
+    this.PROXY_MIDDLEWARE = [
+      // require('http-proxy-middleware')('/api', { ws: false, target: 'http://localhost:3003' })
+      require('http-proxy-middleware')('/api', {ws: true, target: 'http://localhost:4000', logLevel: 'debug'})
+    ];
 
     /* Add to or override NPM module configurations: */
-    // this.PLUGIN_CONFIGS['browser-sync'] = { ghostMode: false };
+    this.PLUGIN_CONFIGS['browser-sync'] = {
+      socket: {
+        // namespace: '/seed-browser-sync',
+        domain: 'localhost:5555'
+      },
+      ghostMode: false
+    };
 
     //Added support for scss like described in https://github.com/mgechev/angular-seed/wiki/Working-with-SASS
     this.ENABLE_SCSS = true;

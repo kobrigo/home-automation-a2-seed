@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Socket } from 'ng2-socket-io';
 
 @Component({
   moduleId: module.id,
@@ -12,7 +13,18 @@ import { Component } from '@angular/core';
 })
 
 export class DebugComponent {
-  constructor() {
+  public logEntries: string[] = [];
+
+  constructor(public socket: Socket) {
     console.log('in the debug component');
+
+    console.log('listening to events on the socket');
+    this.socket.on('pins:status', (message: any) => {
+      this.logEntries.push(JSON.stringify(message.gpioPins));
+    });
+  }
+
+  onGetPinsStatus() {
+    this.socket.emit('pins:getStatus', {});
   }
 }

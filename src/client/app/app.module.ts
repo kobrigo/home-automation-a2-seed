@@ -12,6 +12,9 @@ import { SharedModule } from './shared/shared.module';
 import { DebugModule } from './debug/debug.module';
 import { MaterialImportsModule } from './shared/angular-material-imports.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SocketIoModule, SocketIoConfig } from 'ng2-socket-io';
+
+const socketIoConfig: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
 
 @NgModule({
 
@@ -25,7 +28,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     SharedModule.forRoot(),
     BrowserAnimationsModule,
     MaterialImportsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    SocketIoModule.forRoot(socketIoConfig)
   ],
 
   declarations: [AppComponent],

@@ -8,9 +8,9 @@ var when = require('when');
 
 var gpio;
 if (config.developmentMode) {
-    gpio = require('./pi-gpio-mock');
+    gpio = require('./rpi-gpio-mock');
 } else {
-    gpio = require('pi-gpio');
+    gpio = require('rpi-gpio');
 }
 
 var _pinsModelCollection = [];
@@ -34,6 +34,8 @@ function writeToAllPins(value) {
 }
 
 function closeAllPins() {
+    var defer = when.defer();
+
     var promises = [];
     logger.log('Closing all pins:');
 
@@ -42,13 +44,22 @@ function closeAllPins() {
         var pin = getPin(pinConfig.id);
         var promise = pin.write(pinConfig.endingState)
             .then(function () {
-               return pin.close(pinConfig.id);
+                return pin.close(pinConfig.id);
             });
 
         promises.push(promise);
     });
 
-    return when.all(promises);
+    when.all(promises)
+        .finally(function() {
+            logger.log('calling destroy on gpio to finish working with all the pins');
+            gpio.destroy(function () {
+                defer.resolve();
+            });
+        });
+
+
+    return defer.promise;
 }
 
 function createPins(config) {

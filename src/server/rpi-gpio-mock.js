@@ -2,6 +2,10 @@ var logger = require('./logger');
 
 module.exports = (function () {
     'use strict';
+    var CONSTANTS = {
+        DIR_IN: 'DIR_IN',
+        DIR_OUT: 'DIR_OUT',
+    };
 
     var _pins = [
         {value: false, direction: 'output', state: 'close'},//2
@@ -26,7 +30,7 @@ module.exports = (function () {
 
     function checkPinNumber(pinNumber, callback) {
         if (pinNumber < 0 && pinNumber > 18) {
-            callback('emulator: pinNumber not supperted: ' + pinNumber);
+            callback('emulator: pinNumber not supported: ' + pinNumber);
             return false;
         }
 
@@ -34,7 +38,7 @@ module.exports = (function () {
     }
 
     function checkDirection(direction, callback) {
-        if (direction !== 'input' && direction !== 'output') {
+        if (direction !== CONSTANTS.DIR_IN && direction !== CONSTANTS.DIR_OUT) {
             callback('emulator: wrong direction: ' + direction);
             return false;
         }
@@ -45,7 +49,11 @@ module.exports = (function () {
     logger.log('loadin pi-gpio-mock module');
 
     return {
-        open: function (pinNumber, direction, callback) {
+
+        DIR_IN: CONSTANTS.DIR_IN,
+        DIR_OUT: CONSTANTS.DIR_OUT,
+
+        setup: function (pinNumber, direction, callback) {
             if (!checkPinNumber(pinNumber, callback)) {
                 return;
             }
@@ -54,32 +62,18 @@ module.exports = (function () {
                 return;
             }
 
+            //this is a mock just store the state so we can query for it later
             _pins[pinNumber].direction = direction;
             _pins[pinNumber].state = 'open';
             callback();
-
         },
 
-        setDirection: function (pinNumber, direction, callback) {
-            if (!checkPinNumber(pinNumber, callback)) {
-                return;
-            }
-
-            if (!checkDirection(direction, callback)) {
-                return;
-            }
-
-            _pins[pinNumber].direction = direction;
+        destroy: function (callback) {
+           if (callback && typeof callback === 'function') {
+               callback();
+           }
         },
 
-        getDirection: function (pinNumber, callback) {
-            if (!checkPinNumber(pinNumber, callback)) {
-                return;
-            }
-
-            return _pins[pinNumber].direction;
-
-        },
         close: function (pinNumber, callback) {
             if (!checkPinNumber(pinNumber, callback)) {
                 return;

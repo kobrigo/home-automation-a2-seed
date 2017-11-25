@@ -7,11 +7,10 @@ module.exports = (function () {
 
     var gpio;
     if(config.developmentMode){
-        gpio = require('./pi-gpio-mock');
+        gpio = require('./rpi-gpio-mock');
     } else {
-        gpio = require('pi-gpio');
+        gpio = require('rpi-gpio');
     }
-
 
     function Pin(pinConfig) {
         this.id = pinConfig.id;
@@ -23,25 +22,10 @@ module.exports = (function () {
         var defer = when.defer();
         var that = this;
         logger.log('Opening pin: ' + this.id);
-        gpio.open(this.id, this.workMode, function (error) {
+        var gpioWorkMode = this.workMode === 'output' ? gpio.DIR_IN : gpio.DIR_OUT;
+        gpio.setup(this.id, gpioWorkMode, function (error) {
             if (error) {
                 defer.reject(new Error('Could not open pin: ' + that.id + 'for work model: ' + that.workMode + ' error: ' + error));
-                return;
-            }
-
-            defer.resolve(that);
-        });
-
-        return defer.promise;
-    };
-
-    Pin.prototype.close = function () {
-        var defer = when.defer();
-        var that = this;
-        logger.log('Closing pin: ' + this.id);
-        gpio.close(this.id, function (error) {
-            if (error) {
-                defer.reject(new Error('Could not close pin: ' + that.id));
                 return;
             }
 

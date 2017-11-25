@@ -2,13 +2,11 @@
     {
         "id": 0,
         "onDays": [
-            "Thursday",
-            "Saturday",
-            "Friday",
-            "Wednesday",
-            "Tuesday",
+            "Sunday",
             "Monday",
-            "Sunday"
+            "Tuesday",
+            "Wednesday",
+            "Thursday"
         ],
         "startAtTime": "07:00:00",
         "duration": "00:15:00",

@@ -41,7 +41,8 @@
     "webdriver-start": "node ./node_modules/protractor/bin/webdriver-manager start",
     "webdriver-update": "node ./node_modules/protractor/bin/webdriver-manager update",
     "compodoc": "node ./node_modules/.bin/compodoc -p src/client/tsconfig.json",
-    "serve.compodoc": "node ./node_modules/.bin/compodoc -s"
+    "serve.compodoc": "node ./node_modules/.bin/compodoc -s",
+    "server": "sudo node ./src/server/server.js"
   },
   "author": "Minko Gechev <mgechev>",
   "license": "MIT",
@@ -158,7 +159,7 @@
     "moment": "2.10.3",
     "ng2-socket-io": "^0.1.7",
     "optimist": "0.6.1",
-    "pi-gpio": "0.0.2",
+    "rpi-gpio": "^0.9.1",
     "rxjs": "^5.2.0",
     "socket.io": "2.0.4",
     "socket.io-client": "^2.0.4",

@@ -42,7 +42,8 @@
     "webdriver-update": "node ./node_modules/protractor/bin/webdriver-manager update",
     "compodoc": "node ./node_modules/.bin/compodoc -p src/client/tsconfig.json",
     "serve.compodoc": "node ./node_modules/.bin/compodoc -s",
-    "server": "sudo node ./src/server/server.js"
+    "server": "sudo node ./src/server/server.js",
+    "install-gpio-driver": "npm install rpi-gpio"
   },
   "author": "Minko Gechev <mgechev>",
   "license": "MIT",

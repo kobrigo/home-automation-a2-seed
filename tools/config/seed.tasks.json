@@ -6,6 +6,8 @@
   "build.dev": [
     "initialize",
     "clean.once",
+    "build.fonts",
+    "build.theme_fonts",
     "build.assets.dev",
     "build.html_css",
     "build.js.dev",
@@ -30,6 +32,9 @@
     "check.tools",
     "clean.prod",
     "tslint",
+    "build.fonts",
+    "build.theme_fonts",
+    "build.css_images",
     "build.assets.prod",
     "build.html_css",
     "copy.prod",
@@ -82,6 +87,8 @@
   "build.test": [
     "initialize",
     "clean.once",
+    "build.fonts",
+    "build.theme_fonts",
     "build.assets.dev",
     "build.html_css",
     "build.js.dev",

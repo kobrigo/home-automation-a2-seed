@@ -13,6 +13,22 @@ export class ProjectConfig extends SeedConfig {
 
   PROJECT_TASKS_DIR = join(process.cwd(), this.TOOLS_DIR, 'tasks', 'project');
 
+  FONTS_DEST = `${this.APP_DEST}/fonts`;
+  FONTS_SRC = [
+    'node_modules/font-awesome/fonts/**'
+  ];
+
+  PRIME_NG_THEME = 'darkness';
+  CSS_IMAGE_DEST = `${this.CSS_DEST}/images`;
+  CSS_IMAGE_SRC = [
+    'node_modules/primeng/resources/themes/' + this.PRIME_NG_THEME + '/images/**'
+  ];
+
+  THEME_FONTS_DEST = `${this.APP_DEST}/css/fonts`;
+  THEME_FONTS_SRC = [
+    'node_modules/primeng/resources/themes/' + this.PRIME_NG_THEME + '/fonts/**',
+  ];
+
   PORT = argv['port'] || 4444;
 
   constructor() {
@@ -30,7 +46,12 @@ export class ProjectConfig extends SeedConfig {
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
 
       /* Selects a pre-built Material theme */
-      {src: '@angular/material/prebuilt-themes/indigo-pink.css', inject: true}
+      //TODO: this should be removed once all ui components have been replaced with primieng
+      {src: '@angular/material/prebuilt-themes/indigo-pink.css', inject: true},
+
+      {src: 'primeng/resources/primeng.css', inject: true},
+      {src: `primeng/resources/themes/${this.PRIME_NG_THEME}/theme.css`, inject: true},
+      {src: 'font-awesome/css/font-awesome.min.css', inject: true}
     ];
 
     // Add `local` third-party libraries to be injected/bundled.
@@ -79,8 +100,14 @@ export class ProjectConfig extends SeedConfig {
           defaultExtension: 'js',
           main: 'index.js'
         }
+      },
+      {
+        name: 'primeng',
+        path: 'node_modules/primeng',
+        packageMeta: {
+          defaultExtension: 'js'
+        }
       }
-
     ];
 
     this.addPackagesBundles(additionalPackages);

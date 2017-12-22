@@ -22,7 +22,7 @@ module.exports = (function () {
         var defer = when.defer();
         var that = this;
         logger.log('Opening pin: ' + this.id);
-        var gpioWorkMode = this.workMode === 'output' ? gpio.DIR_IN : gpio.DIR_OUT;
+        var gpioWorkMode = this.workMode === 'output' ? gpio.DIR_OUT : gpio.DIR_IN;
         gpio.setup(this.id, gpioWorkMode, function (error) {
             if (error) {
                 defer.reject(new Error('Could not open pin: ' + that.id + 'for work model: ' + that.workMode + ' error: ' + error));

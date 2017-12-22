@@ -42,10 +42,7 @@ function closeAllPins() {
     //leave the pins in their shutdown state when closing
     config.gpioPins.forEach(function (pinConfig) {
         var pin = getPin(pinConfig.id);
-        var promise = pin.write(pinConfig.endingState)
-            .then(function () {
-                return pin.close(pinConfig.id);
-            });
+        var promise = pin.write(pinConfig.endingState);
 
         promises.push(promise);
     });

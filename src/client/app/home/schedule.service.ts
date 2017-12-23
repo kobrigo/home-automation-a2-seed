@@ -22,11 +22,15 @@ export class SchedulesStoreService {
   }
 
   saveSchedule(schedule: ISchedule) {
-    this.shaderApiService.saveSchedule(schedule).subscribe((updatedSchedule: ISchedule) => {
-      let schedules = this._shaderSchedules.getValue();
-      let scheduleIndex = schedules.findIndex(schedule => schedule.id === updatedSchedule.id);
-      schedules[scheduleIndex] = updatedSchedule;
-      this._shaderSchedules.next(schedules);
+    let observable = this.shaderApiService.saveSchedule(schedule);
+
+    observable.subscribe((updatedSchedules: ISchedule[]) => {
+      // let schedules = this._shaderSchedules.getValue();
+      // let scheduleIndex = schedules.findIndex(schedule => schedule.id === updatedSchedule.id);
+      // schedules[scheduleIndex] = updatedSchedule;
+      this._shaderSchedules.next(updatedSchedules);
     });
+
+    return observable;
   }
 }

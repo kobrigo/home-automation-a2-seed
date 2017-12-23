@@ -1,0 +1,31 @@
+:host {
+  .edit-button {
+    font-size: 10px;
+  }
+
+  .day {
+    padding: 5px;
+
+    &.checked {
+      background-color: gray;
+    }
+  }
+
+  .editing-panel {
+    position: relative;
+
+    .editing-panel-toolbar {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+
+    .cancel-button {
+      font-size: 10px;
+    }
+
+    .ok-button {
+      font-size: 10px;
+    }
+  }
+}

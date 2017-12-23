@@ -6,7 +6,7 @@ module.exports = (function () {
     return  {
         portToListenTo : argv.port || 4000,
         // developmentMode: argv.development !== undefined? argv.development : false,
-        developmentMode: false,
+        developmentMode: true,
         gpioPins: [
             {
                 id: 7,

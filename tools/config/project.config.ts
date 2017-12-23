@@ -26,7 +26,7 @@ export class ProjectConfig extends SeedConfig {
 
   THEME_FONTS_DEST = `${this.APP_DEST}/css/fonts`;
   THEME_FONTS_SRC = [
-    'node_modules/primeng/resources/themes/' + this.PRIME_NG_THEME + '/fonts/**',
+    this.ASSETS_SRC + '/fonts/primeng/**',
   ];
 
   PORT = argv['port'] || 4444;
@@ -44,13 +44,14 @@ export class ProjectConfig extends SeedConfig {
       ...this.NPM_DEPENDENCIES,
       // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
+      {src: 'moment/moment.js', inject: true },
 
       /* Selects a pre-built Material theme */
       //TODO: this should be removed once all ui components have been replaced with primieng
       {src: '@angular/material/prebuilt-themes/indigo-pink.css', inject: true},
 
       {src: 'primeng/resources/primeng.css', inject: true},
-      {src: `primeng/resources/themes/${this.PRIME_NG_THEME}/theme.css`, inject: true},
+      // {src: `primeng/resources/themes/${this.PRIME_NG_THEME}/theme.css`, inject: true},
       {src: 'font-awesome/css/font-awesome.min.css', inject: true}
     ];
 
@@ -62,7 +63,7 @@ export class ProjectConfig extends SeedConfig {
 
     this.ROLLUP_INCLUDE_DIR = [
       ...this.ROLLUP_INCLUDE_DIR,
-      //'node_modules/moment/**'
+      'node_modules/moment/**'
     ];
 
     this.ROLLUP_NAMED_EXPORTS = [

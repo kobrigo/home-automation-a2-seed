@@ -12,9 +12,9 @@ import { SharedModule } from './shared/shared.module';
 import { DebugModule } from './debug/debug.module';
 import { MaterialImportsModule } from './shared/angular-material-imports.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SocketIoModule, SocketIoConfig } from 'ng2-socket-io';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
-const socketIoConfig: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
+const socketIoConfig: SocketIoConfig = { url: 'http://localhost:4001', options: {} };
 
 @NgModule({
 

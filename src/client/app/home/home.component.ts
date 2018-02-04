@@ -10,7 +10,7 @@ import { SchedulesStoreService } from './schedule.service';
   templateUrl: 'home.component.html',
   styleUrls: ['home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
   /**
    * Creates an instance of the HomeComponent with the injected
@@ -19,12 +19,6 @@ export class HomeComponent implements OnInit {
    * @param {SchedulesStoreService} schedulesStoreService - injected
    */
   constructor(public schedulesStoreService: SchedulesStoreService) {
-  }
-
-  /**
-   * Get the names OnInit
-   */
-  ngOnInit() {
   }
 
 }

@@ -1,7 +1,7 @@
 import { join } from 'path';
 
 import { SeedConfig } from './seed.config';
-import { ExtendPackages } from "./seed.config.interfaces";
+import { ExtendPackages } from './seed.config.interfaces';
 
 import { argv } from 'yargs';
 
@@ -69,6 +69,11 @@ export class ProjectConfig extends SeedConfig {
     this.ROLLUP_NAMED_EXPORTS = [
       ...this.ROLLUP_NAMED_EXPORTS,
       //{'node_modules/immutable/dist/immutable.js': [ 'Map' ]},
+      {'node_modules/primeng/primeng.js': [
+        'CalendarModule',
+        'ButtonModule',
+        'ToggleButtonModule'
+      ]}
     ];
 
     // Add packages (e.g. ng2-translate)
@@ -95,8 +100,8 @@ export class ProjectConfig extends SeedConfig {
         }
       },
       {
-        name: 'ng2-socket-io',
-        path: 'node_modules/ng2-socket-io/',
+        name: 'ng-socket-io',
+        path: 'node_modules/ng-socket-io/dist',
         packageMeta: {
           defaultExtension: 'js',
           main: 'index.js'
@@ -123,7 +128,7 @@ export class ProjectConfig extends SeedConfig {
     this.PLUGIN_CONFIGS['browser-sync'] = {
       socket: {
         // namespace: '/seed-browser-sync',
-        domain: 'localhost:5555'
+        domain: 'localhost:4444'
       },
       ghostMode: false
     };

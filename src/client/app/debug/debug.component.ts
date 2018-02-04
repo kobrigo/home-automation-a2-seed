@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Socket } from 'ng2-socket-io';
+import { Socket } from 'ng-socket-io';
 
 @Component({
   moduleId: module.id,
@@ -14,6 +14,7 @@ import { Socket } from 'ng2-socket-io';
 
 export class DebugComponent {
   public logEntries: string[] = [];
+
 
   constructor(public socket: Socket) {
     console.log('in the debug component');

@@ -5,6 +5,7 @@ module.exports = (function () {
 
     return  {
         portToListenTo : argv.port || 4000,
+        socketIoPortToListenTo : argv.port || 4001,
         // developmentMode: argv.development !== undefined? argv.development : false,
         developmentMode: true,
         gpioPins: [

@@ -6,6 +6,7 @@
     "url": "https://github.com/mgechev/angular-seed"
   },
   "scripts": {
+    "install-gpio": "npm isntall onoff rpi-gpio",
     "build.dev": "gulp build.dev --color --env-config dev",
     "build.dev.watch": "gulp build.dev.watch --color",
     "build.e2e": "gulp build.e2e --color",

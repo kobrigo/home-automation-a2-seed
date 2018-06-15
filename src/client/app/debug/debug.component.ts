@@ -6,10 +6,7 @@ import { Socket } from 'ng-socket-io';
   selector: 'ha-debug',
   providers: [],
   viewProviders: [],
-  templateUrl: 'debug.component.html',
-  // styleUrls: ['./debug.component.css'],
-  // directives: [],
-  // pipes: []
+  templateUrl: 'debug.component.html'
 })
 
 export class DebugComponent {

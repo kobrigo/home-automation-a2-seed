@@ -1,23 +1,74 @@
 <div>
     <span>{{model.id}}</span>
     <span>
-        <md-button-toggle [checked]="onAtSunday" (change)="onDayChanged($event, 'Sunday')">Sunday</md-button-toggle>
-        <md-button-toggle [checked]="onAtMonday" (change)="onDayChanged($event, 'Monday')">Monday</md-button-toggle>
-        <md-button-toggle [checked]="onAtTuesday" (change)="onDayChanged($event, 'Tuesday')">Tuesday</md-button-toggle>
-        <md-button-toggle [checked]="onAtWednesday" (change)="onDayChanged($event, 'Wednesday')">Wednesday</md-button-toggle>
-        <md-button-toggle [checked]="onAtThursday" (change)="onDayChanged($event, 'Thursday')">Thursday</md-button-toggle>
-        <md-button-toggle [checked]="onAtFriday" (change)="onDayChanged($event, 'Friday')">Friday</md-button-toggle>
-        <md-button-toggle [checked]="onAtSaturday" (change)="onDayChanged($event, 'Saturday')">Saturday</md-button-toggle>
+        <span class="day" [class.checked]="daysViewModel.Sunday">Sunday</span>
+        <span class="day" [class.checked]="daysViewModel.Monday">Monday</span>
+        <span class="day" [class.checked]="daysViewModel.Tuesday">Tuesday</span>
+        <span class="day" [class.checked]="daysViewModel.Wednesday">Wednesday</span>
+        <span class="day" [class.checked]="daysViewModel.Thursday">Thursday</span>
+        <span class="day" [class.checked]="daysViewModel.Friday">Friday</span>
+        <span class="day" [class.checked]="daysViewModel.Saturday">Saturday</span>
     </span>
     <span>{{model.startAtTime}}</span>
     <span>{{model.duration}}</span>
 
     <mat-slide-toggle
             class="schedule-enable-toggle"
-            [color]="blue"
+            [color]="'blue'"
             [(ngModel)]="model.enabled"
-            (change)="onEnableToggleChanged($event, model)"
-    >
-        Slide me!
+            (change)="onEnableToggleChanged($event, model)">
     </mat-slide-toggle>
+
+    <button pbutton="" type="button" *ngIf="!editing"
+            (click)="onEditClicked()"
+            class="edit-button ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only">
+        <span
+                class="ui-button-icon-left ui-clickable fa fa-fw ui-icon-edit">
+        </span>
+    </button>
+
+    <!--<button pButton type="button" (click)="onEditClicked()" *ngIf="!editing">edit</button>-->
+    <!--<button pButton type="button" (click)="onCancelClicked()" *ngIf="editing">cancel</button>-->
+    <!--<button pButton type="button" (click)="onSaveClicked()" *ngIf="editing">save</button>-->
+
+    <div class="editing-panel" *ngIf="editing">
+        <span *ngIf="saving">saving</span>
+        <span>
+            <p-toggleButton [(ngModel)]="editingDaysViewModel.Sunday" onLabel="Sunday" offLabel="Sunday">Sunday</p-toggleButton>
+            <p-toggleButton [(ngModel)]="editingDaysViewModel.Monday" onLabel="Monday" offLabel="Monday">Monday</p-toggleButton>
+            <p-toggleButton [(ngModel)]="editingDaysViewModel.Tuesday" onLabel="Tuesday" offLabel="Tuesday">Tuesday</p-toggleButton>
+            <p-toggleButton [(ngModel)]="editingDaysViewModel.Wednesday" onLabel="Wednesday" offLabel="Wednesday">Wednesday</p-toggleButton>
+            <p-toggleButton [(ngModel)]="editingDaysViewModel.Thursday" onLabel="Thursday" offLabel="Thursday">Thursday</p-toggleButton>
+            <p-toggleButton [(ngModel)]="editingDaysViewModel.Friday" onLabel="Friday" offLabel="Friday">Friday</p-toggleButton>
+            <p-toggleButton [(ngModel)]="editingDaysViewModel.Saturday" onLabel="Saturday" offLabel="Saturday">Saturday</p-toggleButton>
+        </span>
+
+        <div>
+            <label>Start At Time:</label>
+            <p-calendar [(ngModel)]="startAtTimeAsDate" [timeOnly]="true"></p-calendar>
+        </div>
+
+        <div>
+            <label>Duration:</label>
+            <p-calendar [(ngModel)]="durationAsDate" [timeOnly]="true"></p-calendar>
+        </div>
+
+        <div class="editing-panel-toolbar">
+            <button pbutton="" type="button" *ngIf="editing"
+                    (click)="onCancelClicked()"
+                    class="cancel-button ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only">
+            <span
+                    class="ui-button-icon-left ui-clickable fa fa-fw ui-icon-cancel">
+            </span>
+            </button>
+
+            <button pbutton="" type="button" *ngIf="editing"
+                    (click)="onSaveClicked()"
+                    class="ok-button ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only">
+            <span
+                    class="ui-button-icon-left ui-clickable fa fa-fw ui-icon-check">
+            </span>
+            </button>
+        </div>
+    </div>
 </div>

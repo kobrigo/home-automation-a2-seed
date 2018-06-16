@@ -15,7 +15,10 @@ var gpioService = require('./gpio-service');
 var app = express();
 var server = httpModule.Server(app);
 
-var io = socketio(server);
+logger.log('Opening socket IO listening on port: ' + config.socketIoPortToListenTo);
+var socketIOServer = httpModule.createServer().listen(config.socketIoPortToListenTo);
+var io = socketio(socketIOServer);
+
 //Middleware
 var publicDirToServeStaticConent = __dirname + '/../../dist/dev/';
 logger.log('serving satic content from:' + publicDirToServeStaticConent);

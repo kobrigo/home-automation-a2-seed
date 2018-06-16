@@ -1,7 +1,7 @@
 import { join } from 'path';
 
 import { SeedConfig } from './seed.config';
-import { ExtendPackages } from "./seed.config.interfaces";
+import { ExtendPackages } from './seed.config.interfaces';
 
 import { argv } from 'yargs';
 
@@ -12,6 +12,22 @@ import { argv } from 'yargs';
 export class ProjectConfig extends SeedConfig {
 
   PROJECT_TASKS_DIR = join(process.cwd(), this.TOOLS_DIR, 'tasks', 'project');
+
+  FONTS_DEST = `${this.APP_DEST}/fonts`;
+  FONTS_SRC = [
+    'node_modules/font-awesome/fonts/**'
+  ];
+
+  PRIME_NG_THEME = 'darkness';
+  CSS_IMAGE_DEST = `${this.CSS_DEST}/images`;
+  CSS_IMAGE_SRC = [
+    'node_modules/primeng/resources/themes/' + this.PRIME_NG_THEME + '/images/**'
+  ];
+
+  THEME_FONTS_DEST = `${this.APP_DEST}/css/fonts`;
+  THEME_FONTS_SRC = [
+    this.ASSETS_SRC + '/fonts/primeng/**',
+  ];
 
   PORT = argv['port'] || 4444;
 
@@ -28,9 +44,15 @@ export class ProjectConfig extends SeedConfig {
       ...this.NPM_DEPENDENCIES,
       // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
+      {src: 'moment/moment.js', inject: true },
 
       /* Selects a pre-built Material theme */
-      {src: '@angular/material/prebuilt-themes/indigo-pink.css', inject: true}
+      //TODO: this should be removed once all ui components have been replaced with primieng
+      {src: '@angular/material/prebuilt-themes/indigo-pink.css', inject: true},
+
+      {src: 'primeng/resources/primeng.css', inject: true},
+      // {src: `primeng/resources/themes/${this.PRIME_NG_THEME}/theme.css`, inject: true},
+      {src: 'font-awesome/css/font-awesome.min.css', inject: true}
     ];
 
     // Add `local` third-party libraries to be injected/bundled.
@@ -41,12 +63,17 @@ export class ProjectConfig extends SeedConfig {
 
     this.ROLLUP_INCLUDE_DIR = [
       ...this.ROLLUP_INCLUDE_DIR,
-      //'node_modules/moment/**'
+      'node_modules/moment/**'
     ];
 
     this.ROLLUP_NAMED_EXPORTS = [
       ...this.ROLLUP_NAMED_EXPORTS,
       //{'node_modules/immutable/dist/immutable.js': [ 'Map' ]},
+      {'node_modules/primeng/primeng.js': [
+        'CalendarModule',
+        'ButtonModule',
+        'ToggleButtonModule'
+      ]}
     ];
 
     // Add packages (e.g. ng2-translate)
@@ -73,14 +100,20 @@ export class ProjectConfig extends SeedConfig {
         }
       },
       {
-        name: 'ng2-socket-io',
-        path: 'node_modules/ng2-socket-io/',
+        name: 'ng-socket-io',
+        path: 'node_modules/ng-socket-io/dist',
         packageMeta: {
           defaultExtension: 'js',
           main: 'index.js'
         }
+      },
+      {
+        name: 'primeng',
+        path: 'node_modules/primeng',
+        packageMeta: {
+          defaultExtension: 'js'
+        }
       }
-
     ];
 
     this.addPackagesBundles(additionalPackages);
@@ -95,7 +128,7 @@ export class ProjectConfig extends SeedConfig {
     this.PLUGIN_CONFIGS['browser-sync'] = {
       socket: {
         // namespace: '/seed-browser-sync',
-        domain: 'localhost:5555'
+        domain: 'localhost:4444'
       },
       ghostMode: false
     };

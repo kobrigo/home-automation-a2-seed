@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
-import { Socket } from 'ng2-socket-io';
+import { Socket } from 'ng-socket-io';
 
 @Component({
   moduleId: module.id,
   selector: 'ha-debug',
   providers: [],
   viewProviders: [],
-  templateUrl: 'debug.component.html',
-  // styleUrls: ['./debug.component.css'],
-  // directives: [],
-  // pipes: []
+  templateUrl: 'debug.component.html'
 })
 
 export class DebugComponent {
   public logEntries: string[] = [];
+
 
   constructor(public socket: Socket) {
     console.log('in the debug component');

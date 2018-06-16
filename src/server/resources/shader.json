@@ -8,8 +8,8 @@
             "Wednesday",
             "Thursday"
         ],
-        "startAtTime": "07:00:00",
-        "duration": "00:15:00",
+        "startAtTime": "07:21:00",
+        "duration": "00:06:00",
         "fireTickEveryMls": 500,
         "eventName": "OpenShade",
         "enabled": true

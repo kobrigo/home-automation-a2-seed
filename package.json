@@ -34,6 +34,7 @@
     "serve.prod.exp": "gulp serve.prod.aot --color --env-config prod --build-type prod",
     "serve.prod.rollup.aot": "gulp serve.prod.rollup.aot --color --env-config prod --build-type prod",
     "start": "gulp serve.dev --color",
+    "start.prod": "gulp serve.dev --color --env-config prod",
     "start.deving": "gulp start.deving --color",
     "tasks.list": "gulp --tasks-simple --color",
     "test": "gulp test --color",

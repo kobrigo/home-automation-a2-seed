@@ -13,8 +13,9 @@ import { DebugModule } from './debug/debug.module';
 import { MaterialImportsModule } from './shared/angular-material-imports.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import { Config } from './shared/config/env.config';
 
-const socketIoConfig: SocketIoConfig = { url: 'http://localhost:4001', options: {} };
+const socketIoConfig: SocketIoConfig = { url: Config.SOCKET_IO_URL, options: {} };
 
 @NgModule({
 

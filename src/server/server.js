@@ -30,6 +30,13 @@ app.use(bodyParser.json());
 routes.init(app);
 socketApiManager.init(io);
 
+//create the stepper motor service
+var stepperMotorService = require('./stepper-motor/stepper-motor-service');
+
+//load all the services that uses socket routs/events
+var stepperMotorSocketRoutes = require('./stepper-motor/stepper-motor-socket-routes');
+stepperMotorSocketRoutes.init(io);
+
 server.listen(config.portToListenTo, function () {
     'use strict';
 

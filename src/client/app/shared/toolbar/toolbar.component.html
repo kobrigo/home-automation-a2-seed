@@ -1,5 +1,10 @@
+<button md-button
+        (click)="onMenuClicked()"
+        [fxHide.gt-sm]="true"
+        [fxShow.sm]="true">
+  <i class="fa">menu</i>
+</button>
 <h1>Home-Automation</h1>
-
 <button class="toolbar-button" md-button [routerLink]="['/']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">HOME</button>
 <button class="toolbar-button" md-button [routerLink]="['/about']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">ABOUT</button>
 <button class="toolbar-button" md-button [routerLink]="['/debug']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">DEBUG</button>

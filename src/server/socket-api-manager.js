@@ -41,3 +41,5 @@ module.exports.broadcastStatus = function (pinsStatus) {
     logger.log('emitting the status to all the sockets');
 };
 
+module.exports.io = _io;
+

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 /**
  * This class represents the toolbar component.
@@ -9,5 +9,11 @@ import { Component } from '@angular/core';
   templateUrl: 'toolbar.component.html',
   styleUrls: ['toolbar.component.css']
 })
-export class ToolbarComponent { }
+export class ToolbarComponent {
+  @Output() menuClicked: EventEmitter<any> = new EventEmitter<any>();
+
+  onMenuClicked() {
+    this.menuClicked.emit();
+  }
+}
 

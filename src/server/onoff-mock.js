@@ -1,5 +1,5 @@
 var logger = require('./logger').createPrefixedLogger('OnOffMock:');
-logger.disable(true);
+logger.disable(false);
 
 module.exports = {
   Gpio: function (pin, config) {

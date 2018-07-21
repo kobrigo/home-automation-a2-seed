@@ -1,12 +1,24 @@
 <div>
-    <div class="toolbar">
-        <button md-button (click)="onGetPinsStatus()">get pins status</button>
-    </div>
-    <div class="output">
-        <ul>
-            <li *ngFor="let logEntry of logEntries">
-                {{logEntry}}
-            </li>
-        </ul>
-    </div>
+  <div class="toolbar">
+    <button md-button (click)="onGetPinsStatus()">get pins status</button>
+  </div>
+  <div class="output">
+    <ul>
+      <li *ngFor="let logEntry of logEntries">
+        {{logEntry}}
+      </li>
+    </ul>
+  </div>
+
+  <button (mousedown)="onStepperMotorStartLeft()"
+          (mouseleave)="onStepperMotorStop()"
+          (mouseup)="onStepperMotorStop()">
+    LEFT
+  </button>
+  <button style="margin-left: 30px"
+          (mousedown)="onStepperMotorStartRight()"
+          (mouseleave)="onStepperMotorStop()"
+          (mouseup)="onStepperMotorStop()">
+    RIGHT
+  </button>
 </div>

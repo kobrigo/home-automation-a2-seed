@@ -12,6 +12,7 @@ import { Socket } from 'ng-socket-io';
 export class DebugComponent {
   public logEntries: string[] = [];
 
+  somebuttonIsPressed = false;
 
   constructor(public socket: Socket) {
     console.log('in the debug component');
@@ -24,5 +25,22 @@ export class DebugComponent {
 
   onGetPinsStatus() {
     this.socket.emit('pins:getStatus', {});
+  }
+
+  onStepperMotorStartLeft() {
+    this.socket.emit('yaw:startMoveLeft', {});
+    this.somebuttonIsPressed = true;
+  }
+
+  onStepperMotorStop() {
+    if(this.somebuttonIsPressed) {
+      this.socket.emit('yaw:stopMove', {});
+      this.somebuttonIsPressed = false;
+    }
+  }
+
+  onStepperMotorStartRight() {
+    this.somebuttonIsPressed = true;
+    this.socket.emit('yaw:startMoveRight', {});
   }
 }

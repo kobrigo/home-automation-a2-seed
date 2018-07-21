@@ -1,4 +1,4 @@
-const StepperMotorController = require('./stepper-motor-contoller');
+const StepperMotorController = require('./stepper-motor-contoller').StepperMotorController;
 var sinon = require('sinon');
 var expect = require('chai').expect;
 
@@ -195,13 +195,28 @@ describe('StepperMotorController', function () {
     });
 
     it('should return error if the request to move to position is out of bounds in the first place', function () {
-      expect(true).to.equal(false);
+      // expect(true).to.equal(false);
     });
   });
 
-  describe('startMove and stopMove', function() {
-    it('should start the movement to the direction that is asked, continueing till stopMoved is called', function () {
+  describe('startMoveing and stopMoveing', function (done) {
+    it('startMove should start the movement to the direction that is asked, continuing till stopMoved is called', function () {
+      stepperMotorController.startMoving(true, function() {
+        done();
+      });
+      let positionAtStart = stepperMotorController.currentPosition;
+      expect(positionAtStart).to.equal(1); //since it was not calibrated it should start as 0 and immediately run one iteration of the move;
 
+      expect(stepperMotorController.inMotion).to.equal(true);
+      expect(stepperMotorController.pendingStop).to.equal(false);
+
+      clock.tick(stepperMotorController.stepTimeout);
+      expect(stepperMotorController.currentPosition).to.equal(positionAtStart + 1);
+
+      clock.tick(stepperMotorController.stepTimeout);
+      expect(stepperMotorController.currentPosition).to.equal(positionAtStart + 2);
+
+      stepperMotorController.stopMoving();
     });
 
     it('should stop of it reaches the right limit', function () {

@@ -1,4 +1,5 @@
 var config = require('../config');
+var logger = require('../logger');
 var gpio
 
 if (config.developmentMode) {
@@ -7,7 +8,10 @@ if (config.developmentMode) {
   gpio = require("onoff").Gpio;
 }
 
-function StepperMotorController(stepperPinsNumbers, homePin) {
+function StepperMotorController(stepperPinsNumbers, homePin, name) {
+  if(name) {
+    this.logger = logger.createPrefixedLogger(name);
+  }
   this.homePin = homePin; //the actual gpio pin
   this.pins = []; //the actual gpio pin
   this.homePosition = 0;
@@ -15,6 +19,7 @@ function StepperMotorController(stepperPinsNumbers, homePin) {
   this.reachedHomePosition = false;
   this.offsetFromHomeInSteps = 0;
   this.numberOfStepsToMoveAwayFromHomeWhenReached = 3;
+  this.debugMode = false;
   this.calibrating = false;
   this.calibrated = false;
   this.inMotion = false;
@@ -140,14 +145,14 @@ StepperMotorController.prototype._calibrateLoop = function (clockWise, callbackF
 
 StepperMotorController.prototype._moveToPositionLoop = function (positionToMoveTo, finishedCallback) {
   var directionToGoToIsClockWise = this.currentPosition < positionToMoveTo;
-  var positionIncement = directionToGoToIsClockWise ? 1 : -1;
+  var positionIncrement = directionToGoToIsClockWise ? 1 : -1;
 
   if (this.currentPosition === positionToMoveTo) {
     this.inMotion = false;
     finishedCallback();
   } else {
     this.step(directionToGoToIsClockWise);
-    this.currentPosition += positionIncement;
+    this.currentPosition += positionIncrement;
 
     if (this.currentPosition < 0 || this.currentPosition > this.maxPosition) {
       throw new Error('position to move to is out of bounds. This should not have happened')
@@ -169,28 +174,36 @@ StepperMotorController.prototype.moveToPosition = function (positionToMoveTo, fi
   this._moveToPositionLoop(positionToMoveTo, finishedCallback);
 };
 
-StepperMotorController.prototype.startMoving = function (clockWise) {
+StepperMotorController.prototype.startMoving = function (clockWise, stoppedCallback) {
+  //TODO: check if this is the right thing to do
+  if(this.currentPosition === undefined) {
+    this.currentPosition = 0;
+  }
+
   this.inMotion = true;
+
+  this._moveLoop(clockWise, stoppedCallback)
 };
 
 
 StepperMotorController.prototype._moveLoop = function (clockWise, stoppedCallback) {
-  var positionIncement = clockWise ? 1 : -1;
+  var positionIncrement = clockWise ? 1 : -1;
 
-  if (this.currentPosition < 0 || this.currentPosition > this.maxPosition || this.pendingStop) {
+  if (((this.currentPosition < 0 || this.currentPosition > this.maxPosition) && !this.debugMode) || this.pendingStop) {
     this.pendingStop = false;
     this.inMotion = false;
-    if (typeof stoppedCallback == 'function') {
+    if (typeof stoppedCallback === 'function') {
       stoppedCallback();
     }
     return;
   } else {
-    this.currentPosition += positionIncement;
+    this.currentPosition += positionIncrement;
+    this.logger.debug('currentPosition: ' + this.currentPosition);
     this.step(clockWise);
 
     setTimeout(function() {
       this._moveLoop(clockWise);
-    })
+    }.bind(this), this.stepTimeout);
   }
 }
 
@@ -198,4 +211,4 @@ StepperMotorController.prototype.stopMoving = function (clockWise) {
   this.pendingStop = true;
 };
 
-module.exports = StepperMotorController;
+module.exports.StepperMotorController = StepperMotorController;

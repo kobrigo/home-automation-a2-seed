@@ -8,6 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NameListService } from './name-list/name-list.service';
 import { MaterialImportsModule } from './angular-material-imports.module';
 import { HttpService } from './http.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -17,6 +18,7 @@ import { HttpService } from './http.service';
   imports: [
     CommonModule,
     RouterModule,
+    FlexLayoutModule,
     MaterialImportsModule
   ],
   declarations: [ToolbarComponent, NavbarComponent],

@@ -30,13 +30,6 @@ function StepperMotorController(stepperPinsNumbers, homePin, name) {
   this.stepTimeout = 0.01;
   this.stepCount = 8;
 
-  process.on('SIGINT', function () {   
-      this.logger.debug('got SIGINT closing pins' + stepperPinsNumbers);
-      this.pins.forEach(function(pin) {
-        pin.unexport();
-      });
-  }.bind(this));
-
   this.Seq = [];
   this.Seq[0] = [1, 0, 0, 0];
   this.Seq[1] = [1, 1, 0, 0];
@@ -61,6 +54,14 @@ StepperMotorController.prototype.setupPins = function (pinsNumbers) {
   pinsNumbers.forEach(function (pin) {
     this.pins.push(new gpio(pin, 'out'));
   }.bind(this));
+
+  process.on('SIGINT', function () {
+    this.logger.debug('got SIGINT closing pins: ' + stepperPinsNumbers);
+    this.pins.forEach(function(pin) {
+      pin.unexport();
+    });
+  }.bind(this));
+
 };
 
 StepperMotorController.prototype.init = function () {

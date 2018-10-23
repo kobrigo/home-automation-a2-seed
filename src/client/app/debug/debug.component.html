@@ -21,4 +21,12 @@
           (mouseup)="onStepperMotorStop()">
     RIGHT
   </button>
+
+  <button (click)="onCalibate()">Calibrate</button>
+
+  <div>
+    <button (click)="onMoveToPosition()">Move To</button>
+    <input type="number" [ngModel]="moveToPosition"/>
+  </div>
+
 </div>

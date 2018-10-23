@@ -13,6 +13,7 @@ export class DebugComponent {
   public logEntries: string[] = [];
 
   somebuttonIsPressed = false;
+  moveToPosition: number;
 
   constructor(public socket: Socket) {
     console.log('in the debug component');
@@ -42,5 +43,14 @@ export class DebugComponent {
   onStepperMotorStartRight() {
     this.somebuttonIsPressed = true;
     this.socket.emit('yaw:startMoveRight', {});
+  }
+
+  onCalibate() {
+    this.socket.emit('yaw:calibrate', { position: this.moveToPosition });
+  }
+
+  onMoveToPosition() {
+    this.somebuttonIsPressed = true;
+    this.socket.emit('yaw:moveToPosition', { position: this.moveToPosition });
   }
 }

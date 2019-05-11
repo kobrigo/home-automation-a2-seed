@@ -55,7 +55,8 @@ StepperMotorController.prototype.setupPins = function (pinsNumbers) {
     this.pins.push(new gpio(pin, 'out'));
   }.bind(this));
 
-  this.homePin = new gpio(this.homePinNumber, 'in');
+  this.logger.log('Listening to pin number: ' + this.homePinNumber);
+  this.homePin = new gpio(this.homePinNumber, 'in', 'both');
   this.homePinCallback = StepperMotorController.prototype.onHomePositionReached.bind(this);
 };
 
@@ -70,16 +71,19 @@ StepperMotorController.prototype.onHomePositionReached = function (error, value)
 StepperMotorController.prototype.init = function () {
   this.homePin.watch(this.homePinCallback);
 
-  process.on('SIGINT', function () {
-    this.logger.debug('got SIGINT closing pins: ' + stepperPinsNumbers);
-    this.pins.forEach(function(pin) {
-      pin.unexport();
-    });
-  }.bind(this));
-
   this.sendSignalToPins();
 }
 
+StepperMotorController.prototype.OnBeforeDestory = function () {
+    this.logger.log('got SIGINT closing pins: ' + stepperPinsNumbers);
+    this.pins.forEach(function(pin) {
+      pin.unexport();
+    });
+
+    this.logger.log('got SIGINT closing home-pin: ' + this.homePinNumber);
+    this.homePin.unexport();
+}
+   
 StepperMotorController.prototype.sendSignalToPins = function () {
   for (let pin = 0; pin < 4; pin++) {
     if (this.Seq[this.stepCounter][pin] !== 0) {

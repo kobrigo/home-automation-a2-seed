@@ -67,6 +67,8 @@ function stopServer() {
             server = null;
             process.exit(0);
         });
+
+   stepperMotorService.yawController.OnBeforeDestroy();
 }
 
 function onSignaledToStop(signalName) {

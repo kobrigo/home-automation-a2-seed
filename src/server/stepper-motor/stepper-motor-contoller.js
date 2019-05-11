@@ -8,11 +8,12 @@ if (config.developmentMode) {
   gpio = require("onoff").Gpio;
 }
 
-function StepperMotorController(stepperPinsNumbers, homePin, name) {
+function StepperMotorController(stepperPinsNumbers, homePinNumber, name) {
   if(name) {
     this.logger = logger.createPrefixedLogger(name);
   }
-  this.homePin = homePin; //the actual gpio pin
+  this.homePinNumber = homePinNumber; //the actual gpio pin
+  this.homePinCallback = null;
   this.pins = []; //the actual gpio pin
   this.homePosition = 0;
   this.currentPosition = undefined;
@@ -40,12 +41,11 @@ function StepperMotorController(stepperPinsNumbers, homePin, name) {
   this.Seq[6] = [0, 0, 0, 1];
   this.Seq[7] = [1, 0, 0, 1];
 
-  if (!stepperPinsNumbers || stepperPinsNumbers.length != 4 || !homePin) {
+  if (!stepperPinsNumbers || stepperPinsNumbers.length != 4 || !homePinNumber) {
     throw new Error('stepperPinsNumbers or homePin was not defined');
   }
 
   this.stepperPinsNumbers = stepperPinsNumbers;
-  this.homePin = homePin;
 
   this.setupPins(this.stepperPinsNumbers);
 }
@@ -55,6 +55,21 @@ StepperMotorController.prototype.setupPins = function (pinsNumbers) {
     this.pins.push(new gpio(pin, 'out'));
   }.bind(this));
 
+  this.homePin = new gpio(this.homePinNumber, 'in');
+  this.homePinCallback = StepperMotorController.prototype.onHomePositionReached.bind(this);
+};
+
+StepperMotorController.prototype.onHomePositionReached = function (error, value) {
+  if (error)  {
+    this.logger.error('HomePositionReached error:', JSON.stringify(error));
+  } else {
+    this.logger.log('HomePositionReached', value);
+  }
+}
+
+StepperMotorController.prototype.init = function () {
+  this.homePin.watch(this.homePinCallback);
+
   process.on('SIGINT', function () {
     this.logger.debug('got SIGINT closing pins: ' + stepperPinsNumbers);
     this.pins.forEach(function(pin) {
@@ -62,9 +77,6 @@ StepperMotorController.prototype.setupPins = function (pinsNumbers) {
     });
   }.bind(this));
 
-};
-
-StepperMotorController.prototype.init = function () {
   this.sendSignalToPins();
 }
 

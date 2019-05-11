@@ -5,14 +5,17 @@ var expect = require('chai').expect;
 describe('StepperMotorController', function () {
   var stepperMotorController;
   var clock;
+  var onHomePositionReachedSpy;
 
   beforeEach(function () {
     clock = sinon.useFakeTimers();
-    stepperMotorController = new StepperMotorController([1, 2, 3, 4], 5);
+    stepperMotorController = new StepperMotorController([1, 2, 3, 4], 5, 'FakeStepperName');
     stepperMotorController.stepTimeout = 1; //this is done just for testing since the tick will not accept floats.
     stepperMotorController.pins.forEach(function (pin) {
       sinon.spy(pin, 'writeSync')
     });
+
+    onHomePositionReachedSpy = sinon.spy(stepperMotorController, 'homePinCallback');
     stepperMotorController.init();
 
     sinon.spy(stepperMotorController, 'step');
@@ -20,6 +23,7 @@ describe('StepperMotorController', function () {
 
   afterEach(function () {
     clock.restore();
+    onHomePositionReachedSpy.restore();
   });
 
   it('should throw an exception if the pins or the homepin was not supplied', () => {
@@ -45,6 +49,11 @@ describe('StepperMotorController', function () {
     expect(stepperMotorController.pins[1].writeSync.withArgs(0).calledOnce).to.equal(true);
     expect(stepperMotorController.pins[2].writeSync.withArgs(0).calledOnce).to.equal(true);
     expect(stepperMotorController.pins[3].writeSync.withArgs(0).calledOnce).to.equal(true);
+  });
+
+  it('should start to listen to the home pin', function () {
+    stepperMotorController.homePin.watchCallback({error: "errorFake"}, 1);
+    expect(stepperMotorController.homePinCallback.calledOnce).to.equal(true);
   });
 
   describe('step', function () {
